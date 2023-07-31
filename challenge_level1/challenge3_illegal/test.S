@@ -1,4 +1,4 @@
-# See https://gitlab.com/vyoma_systems/common/-/blob/main/LICENSE.vyoma for more details
+// See https://gitlab.com/vyoma_systems/common/-/blob/main/LICENSE.vyoma for more details
  
 #include "riscv_test.h"
 #include "test_macros.h"
@@ -22,14 +22,22 @@ illegal_instruction:
 mtvec_handler:
   li t1, CAUSE_ILLEGAL_INSTRUCTION
   csrr t0, mcause
-  bne t0, t1, fail
+  bne t0, t1, fail  
   csrr t0, mepc
+
+  la a0, error_message
+  li a7, 4   
+  ecall
 
   mret
 
+.data
+error_message:
+  .ascii "Error: Illegal Instruction\n"
+  .align 2
+
 RVTEST_CODE_END
 
-  .data
 RVTEST_DATA_BEGIN
 
   TEST_DATA
