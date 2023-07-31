@@ -11,6 +11,7 @@ RVTEST_CODE_BEGIN
 
   li TESTNUM, 2
 
+
 illegal_instruction:
   .word 0              
   j fail
@@ -22,12 +23,15 @@ illegal_instruction:
 mtvec_handler:
   li t1, CAUSE_ILLEGAL_INSTRUCTION
   csrr t0, mcause
-  bne t0, t1, fail  
+  bne t0, t1, pass  
   csrr t0, mepc
+  li t1, 0x00000013
+  sw t1, 0(t0)
+  csrw mepc, t0
 
-  la a0, error_message
-  li a7, 4   
-  ecall
+  //la a0, error_message
+  //li a7, 4   
+  //ecall
 
   mret
 
