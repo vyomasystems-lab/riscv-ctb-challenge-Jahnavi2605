@@ -10,6 +10,7 @@ RVTEST_CODE_BEGIN
   .option norvc
 
   li TESTNUM, 2
+
 illegal_instruction:
   .word 0              
   j fail
@@ -17,6 +18,7 @@ illegal_instruction:
 
   .align 8
   .global mtvec_handler
+  
 mtvec_handler:
   li t1, CAUSE_ILLEGAL_INSTRUCTION
   csrr t0, mcause

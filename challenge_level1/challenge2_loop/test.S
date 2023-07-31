@@ -19,8 +19,12 @@ loop:
   lw t3, 8(t0)
   add t4, t1, t2
   addi t0, t0, 12
-  beq t3, t4, loop        # check if sum is correct
+  addi t5, t5, -1
+  beqz t5, test_end
+  beq t3, t4, loop
   j fail
+
+  
 
 test_end:
 
